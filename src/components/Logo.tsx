@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import { MessageSquareText } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface LogoProps {
@@ -42,7 +41,7 @@ export const Logo = ({ className, href = "/" }: LogoProps) => {
             </div>
 
             {/* Wordmark */}
-            <div className="hidden md:flex items-center text-[18px] font-[800] tracking-[-0.02em] leading-none mt-0.5">
+            <div className="flex items-center text-[18px] font-[800] tracking-[-0.02em] leading-none mt-0.5">
                 <span className="text-[#EDF2FB]">Comment</span>
                 <span className="text-[#4DB8FF]">Flow</span>
             </div>
