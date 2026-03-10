@@ -5,11 +5,10 @@ import { cn } from "@/lib/utils";
 
 interface LogoProps {
     className?: string;
-    isScrolled?: boolean;
     href?: string;
 }
 
-export const Logo = ({ className, isScrolled = false, href = "/" }: LogoProps) => {
+export const Logo = ({ className, href = "/" }: LogoProps) => {
     return (
         <Link
             href={href}
@@ -21,9 +20,8 @@ export const Logo = ({ className, isScrolled = false, href = "/" }: LogoProps) =
             {/* Icon Square */}
             <div
                 className={cn(
-                    "flex-shrink-0 flex items-center justify-center w-9 h-9 rounded-lg transition-all duration-300",
-                    "bg-gradient-to-br from-[#1A6EF5] to-[#4DB8FF]",
-                    isScrolled ? "drop-shadow-[0_0_8px_rgba(77,184,255,0.4)]" : "drop-shadow-none"
+                    "flex-shrink-0 flex items-center justify-center w-9 h-9 rounded-lg",
+                    "bg-gradient-to-br from-[#1A6EF5] to-[#4DB8FF]"
                 )}
             >
                 {/* SVG Icon: Speech bubble with inner spark styling */}
