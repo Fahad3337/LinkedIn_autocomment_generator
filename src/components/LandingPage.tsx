@@ -596,8 +596,8 @@ export default function LinkedInAutomationLanding() {
                     <div className="mx-auto max-w-7xl px-6 lg:px-8">
                         <div className="flex h-16 items-center justify-between">
                             <div className="flex items-center gap-3">
-                                <img src="/logo.png" alt="CommentFlow" className="h-[46px] w-[46px] rounded-lg shadow-xl shadow-[#1A6EF5]/20 object-cover" />
-                                <span className="text-xl font-bold tracking-tight text-[#EDF2FB]">
+                                <img src="/logo.png" alt="CommentFlow" className="h-14 w-14 rounded-xl shadow-xl shadow-[#1A6EF5]/20 object-cover" />
+                                <span className="text-2xl font-bold tracking-tight text-[#EDF2FB]">
                                     CommentFlow
                                 </span>
                             </div>
@@ -1102,9 +1102,9 @@ export default function LinkedInAutomationLanding() {
                     <div className="mx-auto max-w-7xl px-6 lg:px-8">
                         <div className="grid md:grid-cols-4 gap-8">
                             <div>
-                                <div className="flex items-center gap-3">
-                                    <img src="/logo.png" alt="CommentFlow" className="h-10 w-10 rounded-lg object-cover" />
-                                    <span className="text-xl font-bold tracking-tight text-[#EDF2FB]">
+                                <div className="flex items-center gap-3 mb-4">
+                                    <img src="/logo.png" alt="CommentFlow" className="h-12 w-12 rounded-xl object-cover" />
+                                    <span className="text-2xl font-bold tracking-tight text-[#EDF2FB]">
                                         CommentFlow
                                     </span>
                                 </div>

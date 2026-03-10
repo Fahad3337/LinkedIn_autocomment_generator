@@ -37,8 +37,9 @@ export default function LoginPage() {
             <div className="w-full max-w-md">
                 <div className="text-center mb-8">
                     <div className="flex justify-center mb-8">
-                        <img src="/logo.png" alt="CommentFlow" className="h-14 w-14 rounded-xl shadow-lg shadow-[#1A6EF5]/20 object-cover" />
-                    </div>    <span className="text-2xl font-bold text-[#EDF2FB]">CommentFlow</span>
+                        <img src="/logo.png" alt="CommentFlow" className="h-20 w-20 rounded-2xl shadow-xl shadow-[#1A6EF5]/20 object-cover" />
+                    </div>
+                    <span className="text-3xl font-bold tracking-tight text-[#EDF2FB]">CommentFlow</span>
                     <p className="text-[#7A94BB]">Sign in to your dashboard</p>
                 </div>
 

@@ -60,9 +60,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                     }`}
             >
                 {/* Logo */}
-                <div className="h-16 flex items-center px-6 border-b border-[#1A3A6B]/40">
-                    <img src="/logo.png" alt="CommentFlow" className="h-10 w-10 rounded-lg shadow-md shadow-[#1A6EF5]/10 object-cover" />
-                    <span className="ml-3 text-lg font-bold text-[#EDF2FB] tracking-tight">CommentFlow</span>
+                <div className="h-20 flex items-center px-6 border-b border-[#1A3A6B]/40">
+                    <img src="/logo.png" alt="CommentFlow" className="h-12 w-12 rounded-xl shadow-md shadow-[#1A6EF5]/10 object-cover" />
+                    <span className="ml-3 text-xl font-bold text-[#EDF2FB] tracking-tight">CommentFlow</span>
                 </div>
 
                 {/* Nav */}
