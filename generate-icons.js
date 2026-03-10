@@ -8,11 +8,7 @@ sizes.forEach(size => {
     const canvas = createCanvas(size, size);
     const ctx = canvas.getContext('2d');
 
-    // Background
-    ctx.fillStyle = '#060D1A';
-    ctx.beginPath();
-    ctx.roundRect(0, 0, size, size, size * 0.2);
-    ctx.fill();
+    // Removed dark background to make the icon transparent
 
     // Primary shape (message bubble + spark)
     ctx.fillStyle = color;
