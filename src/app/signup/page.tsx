@@ -1,7 +1,9 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import { useAuth } from "@/contexts/AuthContext";
+import { Logo } from "@/components/Logo";
 import { useRouter } from "next/navigation";
 
 export default function SignupPage() {
@@ -36,12 +38,11 @@ export default function SignupPage() {
     return (
         <div className="min-h-screen bg-[#060D1A] flex items-center justify-center px-4">
             <div className="w-full max-w-md">
-                <div className="text-center mb-8">
-                    <div className="flex justify-center mb-8">
-                        <img src="/logo.png" alt="CommentFlow" className="h-20 w-20 rounded-2xl shadow-xl shadow-[#1A6EF5]/20 object-cover" />
+                <div className="text-center mb-8 flex flex-col items-center">
+                    <div className="flex justify-center mb-6 scale-150 transform origin-center">
+                        <Logo />
                     </div>
-                    <span className="text-3xl font-bold tracking-tight text-[#EDF2FB]">CommentFlow</span>
-                    <p className="text-[#7A94BB]">Create your account</p>
+                    <p className="text-[#7A94BB] mt-6">Create your account</p>
                 </div>
 
                 <form

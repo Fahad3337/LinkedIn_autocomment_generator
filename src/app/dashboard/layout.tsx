@@ -4,6 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
+import { Logo } from "@/components/Logo";
 import {
     LayoutDashboard,
     FileText,
@@ -56,13 +57,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
             {/* Sidebar */}
             <aside
-                className={`fixed lg:static inset-y-0 left-0 z-50 w-64 bg-[#0A1628] border-r border-[#1A3A6B]/40 flex flex-col transition-transform duration-200 ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
-                    }`}
+                className={`fixed lg:static inset - y - 0 left - 0 z - 50 w - 64 bg - [#0A1628] border - r border - [#1A3A6B] / 40 flex flex - col transition - transform duration - 200 ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+                    } `}
             >
                 {/* Logo */}
                 <div className="h-20 flex items-center px-6 border-b border-[#1A3A6B]/40">
-                    <img src="/logo.png" alt="CommentFlow" className="h-12 w-12 rounded-xl shadow-md shadow-[#1A6EF5]/10 object-cover" />
-                    <span className="ml-3 text-xl font-bold text-[#EDF2FB] tracking-tight">CommentFlow</span>
+                    <Logo />
                 </div>
 
                 {/* Nav */}
@@ -74,10 +74,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                                 key={item.href}
                                 href={item.href}
                                 onClick={() => setSidebarOpen(false)}
-                                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${isActive
-                                    ? "bg-[#1A6EF5]/10 text-[#4DB8FF] border border-[#1A6EF5]/20"
-                                    : "text-[#7A94BB] hover:bg-[#0F2040] hover:text-[#EDF2FB]"
-                                    }`}
+                                className={`flex items - center gap - 3 px - 3 py - 2.5 rounded - lg text - sm font - medium transition - colors ${isActive
+                                        ? "bg-[#1A6EF5]/10 text-[#4DB8FF] border border-[#1A6EF5]/20"
+                                        : "text-[#7A94BB] hover:bg-[#0F2040] hover:text-[#EDF2FB]"
+                                    } `}
                             >
                                 <item.icon className="h-4.5 w-4.5" />
                                 {item.label}

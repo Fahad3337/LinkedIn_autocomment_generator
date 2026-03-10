@@ -21,6 +21,7 @@ import { cn } from "@/lib/utils";
 import { CustomCursor, useCursorVariant } from "@/components/CustomCursor";
 import { useMousePosition } from "@/hooks/useMousePosition";
 import Link from "next/link";
+import { Logo } from "@/components/Logo";
 
 // ============================================================================
 // ANIMATION CONFIG
@@ -595,12 +596,7 @@ export default function LinkedInAutomationLanding() {
                 <nav className="fixed top-0 left-0 right-0 z-50 border-b border-[#1A3A6B]/40 bg-[#060D1A]/80 backdrop-blur-xl">
                     <div className="mx-auto max-w-7xl px-6 lg:px-8">
                         <div className="flex h-16 items-center justify-between">
-                            <div className="flex items-center gap-3">
-                                <img src="/logo.png" alt="CommentFlow" className="h-14 w-14 rounded-xl shadow-xl shadow-[#1A6EF5]/20 object-cover" />
-                                <span className="text-2xl font-bold tracking-tight text-[#EDF2FB]">
-                                    CommentFlow
-                                </span>
-                            </div>
+                            <Logo />
 
                             <div className="hidden md:flex items-center space-x-8">
                                 <NavLink href="#features">Features</NavLink>
@@ -1102,11 +1098,8 @@ export default function LinkedInAutomationLanding() {
                     <div className="mx-auto max-w-7xl px-6 lg:px-8">
                         <div className="grid md:grid-cols-4 gap-8">
                             <div>
-                                <div className="flex items-center gap-3 mb-4">
-                                    <img src="/logo.png" alt="CommentFlow" className="h-12 w-12 rounded-xl object-cover" />
-                                    <span className="text-2xl font-bold tracking-tight text-[#EDF2FB]">
-                                        CommentFlow
-                                    </span>
+                                <div className="mb-4">
+                                    <Logo />
                                 </div>
                                 <p className="text-sm text-[#7A94BB]">
                                     Automate your LinkedIn lead generation

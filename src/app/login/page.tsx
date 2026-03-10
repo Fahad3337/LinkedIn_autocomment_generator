@@ -3,6 +3,7 @@
 import * as React from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
+import { Logo } from "@/components/Logo"; // Ensure this import is present, it was in the original context
 
 export default function LoginPage() {
     const { login, user, loading } = useAuth();
@@ -35,12 +36,11 @@ export default function LoginPage() {
     return (
         <div className="min-h-screen bg-[#060D1A] flex items-center justify-center px-4">
             <div className="w-full max-w-md">
-                <div className="text-center mb-8">
-                    <div className="flex justify-center mb-8">
-                        <img src="/logo.png" alt="CommentFlow" className="h-20 w-20 rounded-2xl shadow-xl shadow-[#1A6EF5]/20 object-cover" />
+                <div className="text-center mb-8 flex flex-col items-center">
+                    <div className="flex justify-center mb-6 scale-150 transform origin-center">
+                        <Logo />
                     </div>
-                    <span className="text-3xl font-bold tracking-tight text-[#EDF2FB]">CommentFlow</span>
-                    <p className="text-[#7A94BB]">Sign in to your dashboard</p>
+                    <p className="text-[#7A94BB] mt-6">Sign in to your dashboard</p>
                 </div>
 
                 <form
