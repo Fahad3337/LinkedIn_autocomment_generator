@@ -20,7 +20,7 @@ export const Logo = ({ className, href = "/" }: LogoProps) => {
             {/* Icon Square */}
             <div
                 className={cn(
-                    "flex-shrink-0 flex items-center justify-center w-9 h-9 rounded-lg",
+                    "flex-shrink-0 flex items-center justify-center w-[36px] h-[36px] rounded-[8px] overflow-hidden",
                     "bg-gradient-to-br from-[#1A6EF5] to-[#4DB8FF]"
                 )}
             >
