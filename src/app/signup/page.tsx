@@ -37,10 +37,10 @@ export default function SignupPage() {
         <div className="min-h-screen bg-[#060D1A] flex items-center justify-center px-4">
             <div className="w-full max-w-md">
                 <div className="text-center mb-8">
-                    <div className="flex items-center justify-center gap-2.5 mb-4">
-                        <img src="/logo.png" alt="CommentFlow" className="h-10 w-10 rounded-lg" />
-                        <span className="text-2xl font-bold text-[#EDF2FB]">CommentFlow</span>
+                    <div className="flex justify-center mb-8">
+                        <img src="/logo.png" alt="CommentFlow" className="h-14 w-14 rounded-xl shadow-lg shadow-[#1A6EF5]/20 object-cover" />
                     </div>
+                    <span className="text-2xl font-bold text-[#EDF2FB]">CommentFlow</span>
                     <p className="text-[#7A94BB]">Create your account</p>
                 </div>
 

@@ -60,9 +60,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                     }`}
             >
                 {/* Logo */}
-                <div className="h-16 flex items-center gap-2.5 px-6 border-b border-[#1A3A6B]/40">
-                    <img src="/logo.png" alt="CommentFlow" className="h-8 w-8 rounded-lg" />
-                    <span className="text-lg font-bold text-[#EDF2FB]">CommentFlow</span>
+                <div className="h-16 flex items-center px-6 border-b border-[#1A3A6B]/40">
+                    <img src="/logo.png" alt="CommentFlow" className="h-10 w-10 rounded-lg shadow-md shadow-[#1A6EF5]/10 object-cover" />
+                    <span className="ml-3 text-lg font-bold text-[#EDF2FB] tracking-tight">CommentFlow</span>
                 </div>
 
                 {/* Nav */}
@@ -75,8 +75,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                                 href={item.href}
                                 onClick={() => setSidebarOpen(false)}
                                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${isActive
-                                        ? "bg-[#1A6EF5]/10 text-[#4DB8FF] border border-[#1A6EF5]/20"
-                                        : "text-[#7A94BB] hover:bg-[#0F2040] hover:text-[#EDF2FB]"
+                                    ? "bg-[#1A6EF5]/10 text-[#4DB8FF] border border-[#1A6EF5]/20"
+                                    : "text-[#7A94BB] hover:bg-[#0F2040] hover:text-[#EDF2FB]"
                                     }`}
                             >
                                 <item.icon className="h-4.5 w-4.5" />

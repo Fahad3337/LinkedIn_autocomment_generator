@@ -595,9 +595,11 @@ export default function LinkedInAutomationLanding() {
                 <nav className="fixed top-0 left-0 right-0 z-50 border-b border-[#1A3A6B]/40 bg-[#060D1A]/80 backdrop-blur-xl">
                     <div className="mx-auto max-w-7xl px-6 lg:px-8">
                         <div className="flex h-16 items-center justify-between">
-                            <div className="flex items-center gap-2.5">
-                                <img src="/logo.png" alt="CommentFlow" className="h-8 w-8 rounded-lg" />
-                                <span className="text-xl font-bold">CommentFlow</span>
+                            <div className="flex items-center gap-3">
+                                <img src="/logo.png" alt="CommentFlow" className="h-[46px] w-[46px] rounded-lg shadow-xl shadow-[#1A6EF5]/20 object-cover" />
+                                <span className="text-xl font-bold tracking-tight text-[#EDF2FB]">
+                                    CommentFlow
+                                </span>
                             </div>
 
                             <div className="hidden md:flex items-center space-x-8">
@@ -1100,9 +1102,11 @@ export default function LinkedInAutomationLanding() {
                     <div className="mx-auto max-w-7xl px-6 lg:px-8">
                         <div className="grid md:grid-cols-4 gap-8">
                             <div>
-                                <div className="flex items-center gap-2.5 mb-4">
-                                    <img src="/logo.png" alt="CommentFlow" className="h-8 w-8 rounded-lg" />
-                                    <span className="text-xl font-bold">CommentFlow</span>
+                                <div className="flex items-center gap-3">
+                                    <img src="/logo.png" alt="CommentFlow" className="h-10 w-10 rounded-lg object-cover" />
+                                    <span className="text-xl font-bold tracking-tight text-[#EDF2FB]">
+                                        CommentFlow
+                                    </span>
                                 </div>
                                 <p className="text-sm text-[#7A94BB]">
                                     Automate your LinkedIn lead generation
