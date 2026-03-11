@@ -147,10 +147,7 @@ video,
     width: 100% !important;
   }
 
-  /* specifically exclude small round UI buttons (like slider arrows) from expanding */
-  button.rounded-full {
-    width: auto !important;
-  }
+
 
   /* Only target main layout structural flex rows to stack, skip small inline UI parts */
   section>.mx-auto>.flex.md\:flex-row,
@@ -166,27 +163,9 @@ video,
     max-width: 100% !important;
   }
 
-  /* specifically prevent SVG icons from stretching 100% width on mobile */
-  svg.lucide,
-  svg.fill-current {
-    width: auto !important;
-    max-width: none !important;
-  }
 
-  /* Testimonials snapshot carousel (ensure it scroll horizontally) */
-  .snap-x {
-    display: flex !important;
-    flex-direction: row !important;
-    overflow-x: auto !important;
-    scroll-snap-type: x mandatory !important;
-  }
 
-  /* Force each testimonial card to be exactly 100% width for one-at-a-time display */
-  .snap-x>div {
-    width: 100% !important;
-    flex-shrink: 0 !important;
-    scroll-snap-align: center !important;
-  }
+
 
   /* Navbar Elements: Strip congestion */
   nav .hidden:not(.md\:inline-block),
