@@ -464,9 +464,40 @@ const TESTIMONIALS = [
 ];
 
 const TestimonialSlider = () => {
+    const scrollRef = React.useRef<HTMLDivElement>(null);
+
+    React.useEffect(() => {
+        const slider = scrollRef.current;
+        if (!slider) return;
+
+        let scrollAmount = 0;
+
+        const autoScroll = setInterval(() => {
+            if (slider.scrollWidth - slider.scrollLeft === slider.clientWidth) {
+                // Reached the end, reset to start smoothly
+                slider.scrollTo({ left: 0, behavior: 'smooth' });
+                scrollAmount = 0;
+            } else {
+                // Scroll by one card width (assuming roughly 300px or 100vw depending on device)
+                // We calculate the width of the first child element dynamically
+                const firstChild = slider.children[0] as HTMLElement;
+                if (firstChild) {
+                    // Add gap (16px or 24px) to the scroll amount
+                    const cardWidth = firstChild.offsetWidth + 16;
+                    slider.scrollBy({ left: cardWidth, behavior: 'smooth' });
+                }
+            }
+        }, 3500); // Auto scroll every 3.5 seconds
+
+        return () => clearInterval(autoScroll);
+    }, []);
+
     return (
         <div className="relative w-full max-w-full pb-8">
-            <div className="flex overflow-x-auto snap-x snap-mandatory  gap-4 md:gap-6 pb-8 hide-scrollbar scroll-smooth">
+            <div
+                ref={scrollRef}
+                className="flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-6 pb-8 hide-scrollbar scroll-smooth"
+            >
                 {TESTIMONIALS.map((t, i) => (
                     <div
                         key={i}
