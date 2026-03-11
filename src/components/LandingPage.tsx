@@ -464,117 +464,144 @@ const TESTIMONIALS = [
 ];
 
 const TestimonialSlider = () => {
-    const [currentIndex, setCurrentIndex] = React.useState(0);
+    const scrollRef = React.useRef<HTMLDivElement>(null);
 
-    // Guaranteed interval auto-scroll. No hover pause so PC never gets stuck!
     React.useEffect(() => {
-        const timer = setInterval(() => {
-            setCurrentIndex((prev) => (prev + 1) % TESTIMONIALS.length);
-        }, 4000); // slightly slower so it's readable
-        return () => clearInterval(timer);
+        const slider = scrollRef.current;
+        if (!slider) return;
+
+        const autoScroll = setInterval(() => {
+            if (slider.scrollWidth - slider.scrollLeft <= slider.clientWidth + 10) {
+                // Reached the end, reset to start seamlessly
+                slider.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+                // Scroll by one card width dynamically (gap 24px)
+                const firstChild = slider.children[0] as HTMLElement;
+                if (firstChild) {
+                    const cardWidth = firstChild.offsetWidth + 24;
+                    slider.scrollBy({ left: cardWidth, behavior: 'smooth' });
+                }
+            }
+        }, 4000);
+
+        return () => clearInterval(autoScroll);
     }, []);
 
-    const handlePrev = () => setCurrentIndex((prev) => (prev === 0 ? TESTIMONIALS.length - 1 : prev - 1));
-    const handleNext = () => setCurrentIndex((prev) => (prev + 1) % TESTIMONIALS.length);
+    const handlePrev = () => {
+        if (scrollRef.current) {
+            const childWidth = (scrollRef.current.children[0] as HTMLElement)?.offsetWidth || 300;
+            scrollRef.current.scrollBy({ left: -(childWidth + 24), behavior: 'smooth' });
+        }
+    };
+
+    const handleNext = () => {
+        if (scrollRef.current) {
+            const slider = scrollRef.current;
+            const childWidth = (slider.children[0] as HTMLElement)?.offsetWidth || 300;
+
+            if (slider.scrollWidth - slider.scrollLeft <= slider.clientWidth + 10) {
+                slider.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+                slider.scrollBy({ left: childWidth + 24, behavior: 'smooth' });
+            }
+        }
+    };
 
     return (
-        <div className="relative w-full max-w-lg md:max-w-4xl mx-auto pb-8 group">
-            <div className="relative min-h-[350px] md:min-h-[300px] w-full max-w-full flex items-center">
+        <div className="relative w-full max-w-full pb-8 group">
+            {/* Desktop Left Arrow */}
+            <button
+                onClick={handlePrev}
+                className="hidden md:flex absolute -left-16 top-1/2 -translate-y-[80%] z-20 p-4 rounded-full border border-[#1A3A6B]/40 text-[#4DB8FF] bg-[#0A1628] hover:bg-[#1A3A6B]/80 transition-all focus:outline-none shadow-[0_0_15px_rgba(26,110,245,0.3)]"
+                aria-label="Previous testimonial"
+            >
+                <ChevronLeft className="w-6 h-6" />
+            </button>
 
-                {/* Desktop Left Arrow */}
-                <button
-                    onClick={handlePrev}
-                    className="hidden md:flex absolute -left-16 z-20 p-4 rounded-full border border-[#1A3A6B]/40 text-[#4DB8FF] bg-[#0A1628] hover:bg-[#1A3A6B]/80 transition-all focus:outline-none shadow-[0_0_15px_rgba(26,110,245,0.3)]"
-                    aria-label="Previous testimonial"
-                >
-                    <ChevronLeft className="w-6 h-6" />
-                </button>
-
-                <div className="w-full relative overflow-hidden h-full min-h-[350px] md:min-h-[300px]">
-                    <AnimatePresence mode="wait">
-                        <motion.div
-                            key={currentIndex}
-                            initial={{ opacity: 0, x: 50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -50 }}
-                            transition={{ duration: 0.3, ease: "easeInOut" }}
-                            className="w-full absolute inset-0 max-w-full"
-                        >
-                            <SpotlightCard className="h-full bg-gradient-to-br from-[#0F2040] to-[#060D1A] border-[#1A3A6B]/40 relative md:px-6">
-                                <CardHeader className="h-full flex flex-col justify-between p-6 md:p-8">
-                                    <div className="mb-6 md:mb-8">
-                                        <div className="flex text-[#1A6EF5] mb-3 md:mb-4">
-                                            {[...Array(5)].map((_, j) => (
-                                                <svg key={j} className="w-4 h-4 md:w-5 md:h-5 fill-current" viewBox="0 0 20 20">
-                                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                                </svg>
-                                            ))}
-                                        </div>
-                                        <p className="text-[15px] md:text-lg text-[#EDF2FB] leading-relaxed italic">
-                                            &quot;{TESTIMONIALS[currentIndex].quote}&quot;
-                                        </p>
+            <div
+                ref={scrollRef}
+                className="flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-6 pb-4 hide-scrollbar scroll-smooth"
+            >
+                {TESTIMONIALS.map((t, i) => (
+                    <div
+                        key={i}
+                        className="snap-center md:snap-start shrink-0 min-w-[100%] md:min-w-[calc(33.333%-16px)] h-auto"
+                    >
+                        <SpotlightCard className="h-full bg-gradient-to-br from-[#0F2040] to-[#060D1A] border-[#1A3A6B]/40 relative md:px-6">
+                            <CardHeader className="h-full flex flex-col justify-between p-6">
+                                <div className="mb-6 md:mb-8">
+                                    <div className="flex text-[#1A6EF5] mb-3 md:mb-4">
+                                        {[...Array(5)].map((_, j) => (
+                                            <svg
+                                                key={j}
+                                                className="w-4 h-4 md:w-5 md:h-5 fill-current"
+                                                viewBox="0 0 20 20"
+                                            >
+                                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                            </svg>
+                                        ))}
                                     </div>
-                                    <div className="flex items-center gap-3 md:gap-4 mt-auto">
-                                        <div className="h-10 w-10 md:h-12 md:w-12 rounded-full bg-gradient-to-br from-[#1A6EF5] to-[#4DB8FF] flex items-center justify-center text-sm font-bold text-white shrink-0">
-                                            {TESTIMONIALS[currentIndex].initials}
+                                    <p className=" text-[15px] md:text-lg text-[#EDF2FB] leading-relaxed italic">
+                                        &quot;{t.quote}&quot;
+                                    </p>
+                                </div>
+                                <div className="flex items-center gap-3 md:gap-4 mt-auto">
+                                    <div className="h-10 w-10 md:h-12 md:w-12 rounded-full bg-gradient-to-br from-[#1A6EF5] to-[#4DB8FF] flex items-center justify-center text-sm font-bold text-white shrink-0">
+                                        {t.initials}
+                                    </div>
+                                    <div>
+                                        <div className="font-semibold text-[#EDF2FB]  text-[14px] md:text-base">
+                                            {t.author}
                                         </div>
-                                        <div>
-                                            <div className="font-semibold text-[#EDF2FB] text-[14px] md:text-base">
-                                                {TESTIMONIALS[currentIndex].author}
-                                            </div>
-                                            <div className="text-[13px] md:text-sm text-[#7A94BB]">
-                                                {TESTIMONIALS[currentIndex].role}
-                                            </div>
+                                        <div className=" text-[13px] md:text-sm text-[#7A94BB]">
+                                            {t.role}
                                         </div>
                                     </div>
-                                </CardHeader>
-                            </SpotlightCard>
-                        </motion.div>
-                    </AnimatePresence>
-                </div>
-
-                {/* Desktop Right Arrow */}
-                <button
-                    onClick={handleNext}
-                    className="hidden md:flex absolute -right-16 z-20 p-4 rounded-full border border-[#1A3A6B]/40 text-[#4DB8FF] bg-[#0A1628] hover:bg-[#1A3A6B]/80 transition-all focus:outline-none shadow-[0_0_15px_rgba(26,110,245,0.3)]"
-                    aria-label="Next testimonial"
-                >
-                    <ChevronRight className="w-6 h-6" />
-                </button>
+                                </div>
+                            </CardHeader>
+                        </SpotlightCard>
+                    </div>
+                ))}
             </div>
 
-            {/* Mobile Manual Controls & Dots */}
-            <div className="flex items-center justify-center gap-6 mt-8 relative z-10 pt-4">
+            {/* Desktop Right Arrow */}
+            <button
+                onClick={handleNext}
+                className="hidden md:flex absolute -right-16 top-1/2 -translate-y-[80%] z-20 p-4 rounded-full border border-[#1A3A6B]/40 text-[#4DB8FF] bg-[#0A1628] hover:bg-[#1A3A6B]/80 transition-all focus:outline-none shadow-[0_0_15px_rgba(26,110,245,0.3)]"
+                aria-label="Next testimonial"
+            >
+                <ChevronRight className="w-6 h-6" />
+            </button>
+
+            {/* Mobile Manual Controls */}
+            <div className="flex justify-center gap-6 mt-4 relative z-10 md:hidden">
                 <button
                     onClick={handlePrev}
-                    className="md:hidden p-3 rounded-full border border-[#1A3A6B]/40 text-[#4DB8FF] bg-[#0A1628] hover:bg-[#1A3A6B]/60 transition-colors focus:outline-none shadow-lg"
+                    className="p-3 rounded-full border border-[#1A3A6B]/40 text-[#4DB8FF] bg-[#0A1628] hover:bg-[#1A3A6B]/60 transition-colors focus:outline-none shadow-[0_0_15px_rgba(26,110,245,0.3)]"
                     aria-label="Previous testimonial"
                 >
                     <ChevronLeft className="w-5 h-5" />
                 </button>
-
-                <div className="flex items-center gap-3">
-                    {TESTIMONIALS.map((_, idx) => (
-                        <button
-                            key={idx}
-                            onClick={() => setCurrentIndex(idx)}
-                            className={cn(
-                                "h-2.5 rounded-full transition-all duration-300",
-                                idx === currentIndex ? "w-8 bg-[#4DB8FF] shadow-[0_0_10px_rgba(77,184,255,0.5)]" : "w-3 bg-[#1A3A6B]/60 hover:bg-[#1A3A6B]"
-                            )}
-                            aria-label={`Go to testimonial ${idx + 1}`}
-                        />
-                    ))}
-                </div>
-
                 <button
                     onClick={handleNext}
-                    className="md:hidden p-3 rounded-full border border-[#1A3A6B]/40 text-[#4DB8FF] bg-[#0A1628] hover:bg-[#1A3A6B]/60 transition-colors focus:outline-none shadow-lg"
+                    className="p-3 rounded-full border border-[#1A3A6B]/40 text-[#4DB8FF] bg-[#0A1628] hover:bg-[#1A3A6B]/60 transition-colors focus:outline-none shadow-[0_0_15px_rgba(26,110,245,0.3)]"
                     aria-label="Next testimonial"
                 >
                     <ChevronRight className="w-5 h-5" />
                 </button>
             </div>
+
+            {/* Custom scrollbar hider css */}
+            <style dangerouslySetInnerHTML={{
+                __html: `
+                .hide-scrollbar::-webkit-scrollbar {
+                    display: none;
+                }
+                .hide-scrollbar {
+                    -ms-overflow-style: none;
+                    scrollbar-width: none;
+                }
+            `}} />
         </div>
     );
 };
