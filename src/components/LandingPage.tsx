@@ -464,93 +464,101 @@ const TESTIMONIALS = [
 ];
 
 const TestimonialSlider = () => {
-    const scrollRef = React.useRef<HTMLDivElement>(null);
+    const [currentIndex, setCurrentIndex] = React.useState(0);
+    const [isHovered, setIsHovered] = React.useState(false);
 
     React.useEffect(() => {
-        const slider = scrollRef.current;
-        if (!slider) return;
+        if (isHovered) return;
+        const timer = setInterval(() => {
+            setCurrentIndex((prev) => (prev + 1) % TESTIMONIALS.length);
+        }, 3500);
+        return () => clearInterval(timer);
+    }, [isHovered]);
 
-        let scrollAmount = 0;
-
-        const autoScroll = setInterval(() => {
-            if (slider.scrollWidth - slider.scrollLeft === slider.clientWidth) {
-                // Reached the end, reset to start smoothly
-                slider.scrollTo({ left: 0, behavior: 'smooth' });
-                scrollAmount = 0;
-            } else {
-                // Scroll by one card width (assuming roughly 300px or 100vw depending on device)
-                // We calculate the width of the first child element dynamically
-                const firstChild = slider.children[0] as HTMLElement;
-                if (firstChild) {
-                    // Add gap (16px or 24px) to the scroll amount
-                    const cardWidth = firstChild.offsetWidth + 16;
-                    slider.scrollBy({ left: cardWidth, behavior: 'smooth' });
-                }
-            }
-        }, 3500); // Auto scroll every 3.5 seconds
-
-        return () => clearInterval(autoScroll);
-    }, []);
+    const handlePrev = () => setCurrentIndex((prev) => (prev === 0 ? TESTIMONIALS.length - 1 : prev - 1));
+    const handleNext = () => setCurrentIndex((prev) => (prev + 1) % TESTIMONIALS.length);
 
     return (
-        <div className="relative w-full max-w-full pb-8">
-            <div
-                ref={scrollRef}
-                className="flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-6 pb-8 hide-scrollbar scroll-smooth"
-            >
-                {TESTIMONIALS.map((t, i) => (
-                    <div
-                        key={i}
-                        className="snap-center sm:snap-start shrink-0  w-[85vw] sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]"
+        <div
+            className="relative w-full max-w-lg md:max-w-4xl mx-auto pb-8 overflow-hidden"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            onTouchStart={() => setIsHovered(true)}
+            onTouchEnd={() => setIsHovered(false)}
+        >
+            <div className="relative min-h-[350px] md:min-h-[300px] w-full max-w-full">
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={currentIndex}
+                        initial={{ opacity: 0, x: 50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -50 }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        className="w-full absolute inset-0 max-w-full"
                     >
-                        <SpotlightCard className="h-full bg-gradient-to-br from-[#0F2040] to-[#060D1A] border-[#1A3A6B]/40 relative">
-                            <CardHeader className="h-full flex flex-col justify-between">
+                        <SpotlightCard className="h-full bg-gradient-to-br from-[#0F2040] to-[#060D1A] border-[#1A3A6B]/40 relative md:px-6">
+                            <CardHeader className="h-full flex flex-col justify-between p-6 md:p-8">
                                 <div className="mb-6 md:mb-8">
                                     <div className="flex text-[#1A6EF5] mb-3 md:mb-4">
                                         {[...Array(5)].map((_, j) => (
-                                            <svg
-                                                key={j}
-                                                className="w-4 w-4 md:w-5 md:h-5 fill-current"
-                                                viewBox="0 0 20 20"
-                                            >
+                                            <svg key={j} className="w-4 h-4 md:w-5 md:h-5 fill-current" viewBox="0 0 20 20">
                                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                                             </svg>
                                         ))}
                                     </div>
-                                    <p className=" text-[15px] md:text-lg text-[#EDF2FB] leading-relaxed italic">
-                                        &quot;{t.quote}&quot;
+                                    <p className="text-[15px] md:text-lg text-[#EDF2FB] leading-relaxed italic">
+                                        &quot;{TESTIMONIALS[currentIndex].quote}&quot;
                                     </p>
                                 </div>
                                 <div className="flex items-center gap-3 md:gap-4 mt-auto">
                                     <div className="h-10 w-10 md:h-12 md:w-12 rounded-full bg-gradient-to-br from-[#1A6EF5] to-[#4DB8FF] flex items-center justify-center text-sm font-bold text-white shrink-0">
-                                        {t.initials}
+                                        {TESTIMONIALS[currentIndex].initials}
                                     </div>
                                     <div>
-                                        <div className="font-semibold text-[#EDF2FB]  text-[14px] md:text-base">
-                                            {t.author}
+                                        <div className="font-semibold text-[#EDF2FB] text-[14px] md:text-base">
+                                            {TESTIMONIALS[currentIndex].author}
                                         </div>
-                                        <div className=" text-[13px] md:text-sm text-[#7A94BB]">
-                                            {t.role}
+                                        <div className="text-[13px] md:text-sm text-[#7A94BB]">
+                                            {TESTIMONIALS[currentIndex].role}
                                         </div>
                                     </div>
                                 </div>
                             </CardHeader>
                         </SpotlightCard>
-                    </div>
-                ))}
+                    </motion.div>
+                </AnimatePresence>
             </div>
 
-            {/* Custom scrollbar hider css */}
-            <style dangerouslySetInnerHTML={{
-                __html: `
-                .hide-scrollbar::-webkit-scrollbar {
-                    display: none;
-                }
-                .hide-scrollbar {
-                    -ms-overflow-style: none;
-                    scrollbar-width: none;
-                }
-            `}} />
+            {/* Manual Controls */}
+            <div className="flex items-center justify-center gap-4 mt-8 relative z-10 pt-4">
+                <button
+                    onClick={handlePrev}
+                    className="p-2 rounded-full border border-[#1A3A6B]/40 text-[#4DB8FF] bg-[#0A1628] hover:bg-[#1A3A6B]/20 transition-colors focus:outline-none"
+                    aria-label="Previous testimonial"
+                >
+                    <ChevronLeft className="w-5 h-5" />
+                </button>
+                <div className="flex items-center gap-2">
+                    {TESTIMONIALS.map((_, idx) => (
+                        <button
+                            key={idx}
+                            onClick={() => setCurrentIndex(idx)}
+                            className={cn(
+                                "h-2 rounded-full transition-all duration-300",
+                                idx === currentIndex ? "w-6 bg-[#4DB8FF]" : "w-2 bg-[#1A3A6B]/60 hover:bg-[#1A3A6B]"
+                            )}
+                            aria-label={`Go to testimonial ${idx + 1}`}
+                        />
+                    ))}
+                </div>
+                <button
+                    onClick={handleNext}
+                    className="p-2 rounded-full border border-[#1A3A6B]/40 text-[#4DB8FF] bg-[#0A1628] hover:bg-[#1A3A6B]/20 transition-colors focus:outline-none"
+                    aria-label="Next testimonial"
+                >
+                    <ChevronRight className="w-5 h-5" />
+                </button>
+            </div>
         </div>
     );
 };
