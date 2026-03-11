@@ -141,25 +141,36 @@ video,
     grid-template-columns: repeat(2, 1fr) !important;
   }
 
-  /* All buttons become full width and stack vertically with 12px gap */
-  button:not(nav button),
-  .btn:not(nav .btn),
-  a:not(nav a):has(button) {
+  /* Primary call to action buttons become full width */
+  button.w-full,
+  a:not(nav a):has(> button:not(.rounded-full)) {
     width: 100% !important;
   }
 
-  .flex.md\:flex-row {
+  /* specifically exclude small round UI buttons (like slider arrows) from expanding */
+  button.rounded-full {
+    width: auto !important;
+  }
+
+  /* Only target main layout structural flex rows to stack, skip small inline UI parts */
+  section>.mx-auto>.flex.md\:flex-row,
+  .spotlight-card>.flex.md\:flex-row {
     flex-direction: column !important;
     gap: 12px !important;
   }
 
-  /* Images, mockups, and cards get max-width: 100% and width: 100% */
+  /* Structural structural images and cards max-width 100%, BUT prevent SVG icons from bloating */
   img:not(nav img),
-  svg:not(nav svg),
   .spotlight-card,
   .SpotlightCard {
     max-width: 100% !important;
-    width: 100% !important;
+  }
+
+  /* specifically prevent SVG icons from stretching 100% width on mobile */
+  svg.lucide,
+  svg.fill-current {
+    width: auto !important;
+    max-width: none !important;
   }
 
   /* Testimonials snapshot carousel (ensure it scroll horizontally) */
