@@ -19,8 +19,211 @@
   }
 }
 
+/* Global Responsive & Mobile Optimization Rules */
+html,
+body {
+  overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  font-size: max(13px, 1rem);
+  /* Body font size floor */
+}
+
+img,
+svg,
+video,
+.mockup-container {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 767px) {
+
+  button,
+  a,
+  .tap-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+@media (hover: none) {
+
+  /* Disable hover animations on touch devices */
+  *:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+}
+
+/* ── STRICT MOBILE OVERRIDES (Enforced Below 768px as requested) ── */
+@media (max-width: 767px) {
+
+  html,
+  body {
+    overflow-x: hidden !important;
+  }
+
+  /* All sections get horizontal padding of 16px minimum */
+  section,
+  footer,
+  .mx-auto {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  /* Section padding halved: 80px -> 40px, 60px -> 30px */
+  section.py-24,
+  section.md\:py-24,
+  section.pt-32,
+  section.pb-20,
+  section.md\:pt-32,
+  section.md\:pb-20 {
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
+  }
+
+  section.py-14,
+  section.md\:py-14,
+  section.py-12,
+  section.md\:py-12,
+  footer.py-12,
+  footer.md\:py-12 {
+    padding-top: 30px !important;
+    padding-bottom: 30px !important;
+  }
+
+  /* Font sizes scale down */
+  h1,
+  h2,
+  h3,
+  h4,
+  .text-\[72px\],
+  .text-7xl,
+  .text-4xl,
+  .text-\[48px\],
+  .text-\[32px\] {
+    font-size: 28px !important;
+    line-height: 1.2 !important;
+  }
+
+  p,
+  .text-lg,
+  .text-\[18px\] {
+    font-size: 15px !important;
+  }
+
+  .text-sm,
+  .text-xs,
+  .text-base,
+  span,
+  div.text-\[13px\] {
+    font-size: 13px !important;
+  }
+
+  /* Structural multi-column collapses to single column */
+  .grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* EXCEPT: Stats Grid which is 2x2. We specifically target the stat container */
+  .grid.lg\:grid-cols-4 {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* All buttons become full width and stack vertically with 12px gap */
+  button:not(nav button),
+  .btn:not(nav .btn),
+  a:not(nav a):has(button) {
+    width: 100% !important;
+  }
+
+  .flex.md\:flex-row {
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+
+  /* Images, mockups, and cards get max-width: 100% and width: 100% */
+  img:not(nav img),
+  svg:not(nav svg),
+  .spotlight-card,
+  .SpotlightCard {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  /* Testimonials snapshot carousel (ensure it scroll horizontally) */
+  .snap-x {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+  }
+
+  /* Force each testimonial card to be exactly 100% width for one-at-a-time display */
+  .snap-x>div {
+    width: 100% !important;
+    flex-shrink: 0 !important;
+    scroll-snap-align: center !important;
+  }
+
+  /* Navbar Elements: Strip congestion */
+  nav .hidden:not(.md\:inline-block),
+  nav .logo-wordmark,
+  nav a[href="/login"],
+  nav div.hidden.md\:block {
+    display: none !important;
+  }
+
+  nav .md\:hidden {
+    display: flex !important;
+  }
+
+  /* Shink logo down slightly on mobile so it takes less space */
+  nav img.logo-icon {
+    width: 36px !important;
+    height: 36px !important;
+    max-width: 36px !important;
+    max-height: 36px !important;
+    min-width: 36px !important;
+  }
+
+  /* Fix navbar gaps to avoid cramming */
+  nav>div>div.flex {
+    gap: 8px !important;
+  }
+
+  /* Navbar CTA Specifics */
+  .navbar-cta-btn {
+    width: auto !important;
+    height: 36px !important;
+    min-height: 36px !important;
+    padding: 0 12px !important;
+    font-size: 13px !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* Ensure button wrapper gap is 12px */
+  .gap-4 {
+    gap: 12px !important;
+  }
+
+  .h-16 {
+    height: 56px !important;
+    /* Slightly thinner navbar helps space on mobile */
+  }
 }

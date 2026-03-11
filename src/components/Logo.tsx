@@ -19,11 +19,11 @@ export const Logo = ({ className, href = "/" }: LogoProps) => {
             <img
                 src="/logo.png"
                 alt="CommentFlow Icon"
-                className="w-10 h-10 rounded-xl object-cover flex-shrink-0 shadow-lg shadow-[#1A6EF5]/20"
+                className="logo-icon w-[44px] h-[44px] rounded-xl object-cover flex-shrink-0 shadow-lg shadow-[#1A6EF5]/20"
             />
 
             {/* Wordmark */}
-            <div className="flex items-center text-[18px] font-[800] tracking-[-0.02em] leading-none mt-0.5">
+            <div className="logo-wordmark flex items-center text-[22px] font-[800] tracking-[-0.02em] leading-none mt-0.5">
                 <span className="text-[#EDF2FB]">Comment</span>
                 <span className="text-[#4DB8FF]">Flow</span>
             </div>
